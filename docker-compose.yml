@@ -18,7 +18,7 @@ services:
      - traefik.backend=jaeger
      - traefik.frontend.rule=Host:jaeger.docker.localhost
   whoami:
-    image: emilevauge/whoami
+    image: containous/whoami
     labels:
      - traefik.enable=true
      - traefik.port=80
