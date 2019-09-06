@@ -25,7 +25,7 @@ services:
      - traefik.backend=whoami1
      - traefik.frontend.rule=Host:whoami.docker.localhost
   traefik:
-    image: traefik:v1.6
+    image: traefik:v1.7.14
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/traefik.toml
