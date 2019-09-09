@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   jaeger:
-    image: jaegertracing/all-in-one:latest
+    image: jaegertracing/all-in-one:1.11
     environment:
       COLLECTOR_ZIPKIN_HTTP_PORT: 9411
     ports:
@@ -18,14 +18,14 @@ services:
      - traefik.backend=jaeger
      - traefik.frontend.rule=Host:jaeger.docker.localhost
   whoami:
-    image: emilevauge/whoami
+    image: containous/whoami
     labels:
      - traefik.enable=true
      - traefik.port=80
      - traefik.backend=whoami1
      - traefik.frontend.rule=Host:whoami.docker.localhost
   traefik:
-    image: traefik:v1.6
+    image: traefik:v1.7.14
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/traefik.toml
@@ -33,10 +33,13 @@ services:
       - 80:80
       - 8080:8080
   hotrod:
-    image: jaegertracing/example-hotrod:latest
-    command: --jaeger-agent.host-port=jaeger:6831
+    image: jaegertracing/example-hotrod:1.11
+    command: all
     labels:
-     - traefik.enable=true
-     - traefik.port=8080
-     - traefik.backend=hotrod
-     - traefik.frontend.rule=Host:hotrod.docker.localhost
+      - traefik.enable=true
+      - traefik.port=8080
+      - traefik.backend=hotrod
+      - traefik.frontend.rule=Host:hotrod.docker.localhost
+    environment:
+      JAEGER_AGENT_HOST: "jaeger"
+      JAEGER_AGENT_PORT: "6831"
