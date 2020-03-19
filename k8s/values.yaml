@@ -1,0 +1,4 @@
+additionalArguments:
+  - "--tracing.serviceName=tracing"
+  - "--tracing.jaeger.samplingServerURL=http://simplest-agent.observability.svc.cluster.local:5778/sampling"
+  - "--tracing.jaeger.localAgentHostPort=simplest-agent.observability.svc.cluster.local:6831"

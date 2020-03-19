@@ -1,0 +1,19 @@
+[api]
+  dashboard = true
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+
+[tracing]
+  servicename = "tracing"
+  [tracing.jaeger]
+    samplingParam = 1.0
+    samplingServerURL = "http://jaeger:5778/sampling"
+    samplingType = "const"
+    localAgentHostPort = "jaeger:6831"
+
+[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  watch = true
+  exposedbydefault = true
